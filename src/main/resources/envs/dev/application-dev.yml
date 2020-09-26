@@ -1,0 +1,61 @@
+server:
+    port: 8080
+    servlet.context-path: /daozi
+
+spring:
+    http:
+        encoding:
+          charset: UTF-8
+          enabled: true
+          force: true
+    mvc:
+      static-path-pattern: /static/**
+    datasource:
+        name: admin
+        url: jdbc:mysql://116.62.170.116:3306/db02?characterEncoding=UTF-8
+        username: root
+        password: w154411698W@
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+
+mybatis:
+    mapper-locations: classpath*:mybatis/*Mapper.xml
+    type-aliases-package: com.uscma.daozi.entity  # 注意：对应实体类的路径
+    configuration:
+        map-underscore-to-camel-case: true
+    show-sql: true
+mapper:
+    mappers: com.uscma.daozi.common.basedao.IBaseDao
+    identity: MYSQL
+#pagehelper分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+security:
+  jwt:
+    token:
+      secret-key: 6142b3c6f0e34477a899597cbd8ec45a2a5bd162415e617c0a32495215b8bc2ea01a3285149f94ae0f8a
+      expire-length: 604800000
+mybatis:
+  mapper-locations: classpath:mappers/**/*.xml
+  type-aliases-package: com.uscma.reactapi.domain.model
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
